@@ -7,7 +7,7 @@
         <p>Descrição: {{ device.description }}</p>
         <img :src="device.photo" alt="Foto do dispositivo" />
         <p>
-          Estado: <input type="checkbox" v-model="deviceStatus" />
+          Estado: <input type="checkbox" :checked="deviceStatus === 'online'" />
         </p>
         <button @click="save">Gravar</button>
       </div>
@@ -23,14 +23,20 @@
       const route = useRoute();
       const router = useRouter();
       const device = store.devices.find(d => d.id == route.params.id);
-      let deviceStatus = device?.status === 'online';
+      let deviceStatus = device.status;
       return { store, device, deviceStatus, router };
     },
     methods: {
-      save() {
-        this.store.updateDevice(this.device.id, this.deviceStatus ? 'online' : 'offline');
-        this.router.push('/');
+        save() {
+      if (this.deviceStatus === 'online') {
+        this.deviceStatus = 'offline';
+      } else {
+        this.deviceStatus = 'online';
       }
+
+      this.store.updateDevice(this.device.id, this.deviceStatus);
+      this.router.push('/');
+    }
     }
   };
   </script>
