@@ -26,27 +26,23 @@ export const useUserStore = defineStore('user', {
         description: 'Notebook com 16GB de RAM e 512GB SSD.', 
         image: 'https://example.com/notebook.jpg'
       },
-    ],
-
-    actions: {
-      login(password) {
-        if (password === 'PW1') {
-          this.isAuthenticated = true;
-          localStorage.setItem('auth', 'true');
-        }
-      },
-      logout() {
-        this.isAuthenticated = false;
-        localStorage.setItem('auth', 'false');
-      },
-      addProduct(product) {
-        this.products.push(product);
+    ],   
+  }),
+  actions: {
+    login(password) {
+      if (password === 'PW1') {
+        this.isAuthenticated = true;
+        localStorage.setItem('auth', 'true');
       }
+    },
+    logout() {
+      this.isAuthenticated = false;
+      localStorage.setItem('auth', 'false');
+    },
+    addProduct(product) {
+      this.products.push(product);
     }
-    
-  })
+  }
 
 }
-
-  
 )
